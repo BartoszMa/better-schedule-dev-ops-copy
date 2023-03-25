@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  # nginx:
+  #   platform: linux/x86_64
+  #   image: nginx
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+
+  neo4j:
+    platform: linux/x86_64
+    image: neo4j:5.5.0
+    restart: unless-stopped
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - ./neo4j/conf:/conf
+      - ./neo4j/data:/data
+      - ./neo4j/import:/import
+      - ./neo4j/logs:/logs
+      - ./neo4j/plugins:/plugins
+
+  mongodb:
+    image: mongo:6.0.5
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/data/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=123
+
+
